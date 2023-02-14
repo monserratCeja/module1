@@ -1,0 +1,10 @@
+.header--bar{
+    background-color: aqua;
+    display: flex;
+}
+.logo--left{
+    text-align: left;
+}
+.header--options-right{
+    float: right;
+}
