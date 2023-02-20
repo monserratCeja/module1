@@ -7,12 +7,13 @@ import Button from '../../common/Button/Button';
 function Header(props) {
 	return (
 		<div className='header--bar'>
-			<div className='logo--left'>
+			<div className='logo--left display-flex'>
 				<Logo />
 			</div>
-			<p>{props.userName}</p>
-			<div className='header--options-right'>
-				<Button buttonText='Click me' />
+
+			<div className='display-flex header--options-right'>
+				<p className='text--white'>{props.userName}</p>
+				<Button buttonText='Log out' />
 			</div>
 		</div>
 	);

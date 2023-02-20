@@ -1,0 +1,18 @@
+.course--form{
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+
+}
+
+label{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+.input--title{
+    width: 50%;
+}
+.input--description{
+    height: 48px;
+}

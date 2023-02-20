@@ -1,3 +1,45 @@
-.createCourse--area{
-    border: 1px black solid;
+
+.createCourse--grid{
+    padding-block: 1rem;
+    background-color: #fff;
+    margin: 32px ;
+    padding: 24px 32px;
+    border-radius:8px;
+    box-shadow: 0 1px 5px rgb(138 137 137);
+    background-color: white;
+    display: grid;
+    gap:1.5rem;
+    grid-template-columns: repeat(2,1fr);
+}
+
+.grid-col-span-2{
+    grid-column: span 2;
+
+}
+
+.createCourse--top{
+    /*display: grid;
+    gap:1.5rem;
+    padding-block: 1rem;*/
+}
+CreateCourse--topElementButtons{
+    text-align:right;
+}
+
+.CreateCourse--topElement{
+
+}
+
+h1, h2{
+    margin-top: 8px;
+    margin-bottom: 16px;
+}
+.CreateCourse--flex{
+    display: flex;
+    border-bottom: 2px solid  #EEEEEE;
+}
+.CreateCourse--topElementButtons{
+
+    margin-left: auto;
+
 }

@@ -4,7 +4,13 @@ function Input(props) {
 	return (
 		<div>
 			<label htmlFor='title'>{props.labelTitle}</label>
-			<input type='text' placeholder={props.placeholder}></input>
+			<input
+				type={props.type}
+				name={props.name}
+				placeholder={props.placeholder}
+				onChange={props.onChange}
+				value={props.value}
+			></input>
 		</div>
 	);
 }

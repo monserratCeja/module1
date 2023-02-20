@@ -6,6 +6,7 @@ import styles from './Courses.css';
 import { getCoursesDuration } from '../../helpers/getCoursesDuration';
 
 function Courses(props) {
+	console.log(props.coursesList);
 	return (
 		<div className='Courses--area'>
 			<div className='Courses--searchBar'>
@@ -18,6 +19,7 @@ function Courses(props) {
 				/>
 			</div>
 			<div className='CourseCard--area'>
+				<h1>Hola</h1>
 				{props.coursesList.map((item) => (
 					<div className='CourseCard--item' key={item.id}>
 						<CourseCard
