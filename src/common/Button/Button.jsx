@@ -1,13 +1,9 @@
 import React from 'react';
-
+import style from './Button.css';
 function Button(props) {
-	function handleClickCreateAuthor(e) {
-		props.handleClickCreateAuthor({ id: '111', name: 'monse' });
-		console.log('crear author');
-	}
 	return (
 		<>
-			<button onClick={handleClickCreateAuthor}>{props.buttonText}</button>
+			<button onClick={props.handleClick}>{props.buttonText}</button>
 		</>
 	);
 }
