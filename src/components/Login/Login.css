@@ -1,0 +1,20 @@
+.login--div{
+    margin: 48px;
+    display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+input{
+    margin-bottom: 16px;
+}
+.registration--link{
+    font-size: 12px;
+    margin-top: 32px;
+}
+.button-login{
+    display: flex;
+    align-items: center;
+  justify-content: center;
+}
