@@ -6,6 +6,8 @@ import CreateCourse from './components/CreateCourse/CreateCourse';
 import { mockedAuthorsList, mockedCoursesList } from './constants';
 import { useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './store/index';
 
 function App() {
 	//const [token, setToken] = useState(localStorage.getItem('token'));
@@ -23,25 +25,12 @@ function App() {
 	}, [tokenLength]);*/
 
 	return (
-		<div className='App'>
-			<Outlet />
-		</div>
+		<Provider store={store}>
+			<div className='App'>
+				<Outlet />
+			</div>
+		</Provider>
 	);
 }
 
 export default App;
-/*
-{createCoursesView ? (
-				<CreateCourse
-					createAuthor={createAuthor}
-					authorsList={authorsListArr}
-					handleClickCancelCreate={CancelNewCoursePressed}
-					handleClickSaveCourse={saveCoursePressed}
-				/>
-			) : (
-				<Courses
-					coursesList={coursesListArr}
-					authorsList={authorsListArr}
-					handleClickCreateCourse={addNewCoursePressed}
-				/>
-			)}*/
