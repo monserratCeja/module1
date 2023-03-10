@@ -6,8 +6,7 @@ import CreateCourse from './components/CreateCourse/CreateCourse';
 import { mockedAuthorsList, mockedCoursesList } from './constants';
 import { useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from './store/index';
+//import { Provider } from 'react-redux';
 
 function App() {
 	//const [token, setToken] = useState(localStorage.getItem('token'));
@@ -25,11 +24,9 @@ function App() {
 	}, [tokenLength]);*/
 
 	return (
-		<Provider store={store}>
-			<div className='App'>
-				<Outlet />
-			</div>
-		</Provider>
+		<div className='App'>
+			<Outlet />
+		</div>
 	);
 }
 

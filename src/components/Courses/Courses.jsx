@@ -7,25 +7,23 @@ import { getCoursesDuration } from '../../helpers/getCoursesDuration';
 import useCourseList from '../../customHooks/useCourseList';
 import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
-//import useFetchCourses from '../../customHooks/useFetchCourses';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCourses, setAuthors } from '../../store/selectors';
+import { getAuthors, getCourses } from '../../services/services';
+import { getCoursesAction } from '../../store/courses/actions';
 
 function Courses(props) {
-	const { coursesListArr } = useCourseList();
-
-	const url = 'http://localhost:4000/courses/all';
-	const [dataCourses, setDataCourses] = useState([]);
-
-	const getData = async () => {
-		const response = await fetch(url);
-		const data = await response.json();
-		console.log('get data');
-		console.log(data.result);
-		setDataCourses(data.result);
-	};
+	const stateCourses = useSelector((state) => setCourses(state));
+	const dispatch = useDispatch();
 
 	useEffect(() => {
-		getData();
+		getCourses().then((data) => dispatch(getCoursesAction(data)));
 	}, []);
+
+	useEffect(() => {
+		console.log('courses fetch');
+		console.log(stateCourses);
+	}, [stateCourses]);
 
 	return (
 		<div>
@@ -42,8 +40,8 @@ function Courses(props) {
 				<div className='CourseCard--area'>
 					<h1>Available courses</h1>
 
-					{dataCourses &&
-						dataCourses.map((item) => (
+					{stateCourses.length > 0 &&
+						stateCourses.map((item) => (
 							<div className='CourseCard--item' key={item.id}>
 								<CourseCard
 									courseTitle={item.title}
