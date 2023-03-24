@@ -5,7 +5,6 @@ import {
 	GET_COURSES,
 } from './types.js';
 
-//En reducers se pone el valor inicial del store
 export const coursesInitialState = { courses: [] };
 
 export const coursesReducer = (state = coursesInitialState, action) => {
@@ -14,15 +13,12 @@ export const coursesReducer = (state = coursesInitialState, action) => {
 			return action.payload;
 
 		case ADD_COURSE:
-			// eslint-disable-next-line no-undef
-			return {
-				...state,
-				courses: [...state.courses, action.payload],
-			};
+			return { ...state, courses: [...state.courses, action.payload] };
 
 		case DELETE_COURSE:
-			// eslint-disable-next-line no-undef
-			return [coursesInitialState];
+			const idCourse = action.payload;
+			const newState = state.courses.filter((item) => item.id !== idCourse);
+			return { ...state, courses: newState };
 
 		case GET_COURSES:
 			return { ...state, courses: action.payload };

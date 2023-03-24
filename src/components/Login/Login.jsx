@@ -3,6 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
 import styles from './Login.css';
+// redux
+import { setUser } from '../../store/selectors';
+import { getUserAction } from '../../store/user/actions';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAuthors, getCourses } from '../../services/services';
+import { getCoursesAction } from '../../store/courses/actions';
+import { getAuthorsAction } from '../../store/authors/actions';
 
 function Login() {
 	const [name, setName] = useState('');
@@ -10,18 +17,22 @@ function Login() {
 	const [password, setPassword] = useState('');
 	const navigate = useNavigate();
 
+	const stateUser = useSelector((state) => setUser(state));
+	const dispatch = useDispatch();
+
 	function handleClick(e) {
 		e.preventDefault();
 		console.log('clicked login');
-		putLogin();
+		postLogin();
 	}
 
-	const putLogin = async () => {
-		const userData = {
-			name,
-			password,
-			email,
-		};
+	const userData = {
+		name,
+		password,
+		email,
+	};
+
+	const postLogin = async () => {
 		console.log(userData);
 		const response = await fetch('http://localhost:4000/login', {
 			method: 'POST',
@@ -33,11 +44,21 @@ function Login() {
 
 		const result = await response.json();
 		if (result.successful) {
-			localStorage.setItem('data', result.user.name);
+			localStorage.setItem('data', result.result);
+			dispatch(getUserAction(result));
 			console.log(result);
+			getCourses().then((data) => dispatch(getCoursesAction(data)));
+			getAuthors().then((data) => dispatch(getAuthorsAction(data)));
 			navigate('../courses', { replace: true });
+		} else {
+			alert('datos incorrectos');
 		}
 	};
+
+	useEffect(() => {
+		console.log('user POST');
+		console.log(stateUser);
+	}, [stateUser]);
 	return (
 		<div className='login--div'>
 			<h2>Login</h2>

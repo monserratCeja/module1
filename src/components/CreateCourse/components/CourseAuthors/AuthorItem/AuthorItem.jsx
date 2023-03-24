@@ -3,7 +3,7 @@ import Button from '../../../../../common/Button/Button';
 
 function AuthorItem(props) {
 	return (
-		<div>
+		<div key={props.id}>
 			<p>{props.name}</p>
 			<Button
 				buttonText='Add author'

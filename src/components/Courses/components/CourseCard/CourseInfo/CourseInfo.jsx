@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-//import useCourseList from '../../../../../customHooks/useCourseList';
 import Button from '../../../../../common/Button/Button';
 import Header from '../../../../Header/Header';
 import { getCoursesDuration } from '../../../../../helpers/getCoursesDuration';
+import { getUserName } from '../../../../../helpers/getUserName';
 //redux
 import { useSelector } from 'react-redux';
 
@@ -20,10 +20,6 @@ function CourseInfo() {
 	useEffect(() => {
 		filterById(params.courseId);
 	}, []);
-	useEffect(() => {
-		console.log('cambió curso filtrado');
-		console.log(courseFiltered);
-	}, [courseFiltered]);
 
 	return (
 		<div>

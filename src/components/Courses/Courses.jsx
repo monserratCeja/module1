@@ -10,20 +10,19 @@ import Header from '../Header/Header';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCourses, setAuthors } from '../../store/selectors';
 import { getAuthors, getCourses } from '../../services/services';
-import { getCoursesAction } from '../../store/courses/actions';
+import {
+	getCoursesAction,
+	deleteCourseAction,
+} from '../../store/courses/actions';
 
 function Courses(props) {
 	const stateCourses = useSelector((state) => setCourses(state));
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		getCourses().then((data) => dispatch(getCoursesAction(data)));
-	}, []);
-
-	useEffect(() => {
-		console.log('courses fetch');
-		console.log(stateCourses);
-	}, [stateCourses]);
+	const deleteCourseClicked = (courseId) => {
+		console.log('delete course ', courseId);
+		dispatch(deleteCourseAction(courseId));
+	};
 
 	return (
 		<div>
@@ -50,6 +49,7 @@ function Courses(props) {
 									courseDuration={getCoursesDuration(item.duration)}
 									courseCreated={item.creationDate}
 									courseId={item.id}
+									deleteCourseClicked={deleteCourseClicked}
 								/>
 							</div>
 						))}
