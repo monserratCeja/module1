@@ -5,7 +5,7 @@ import Button from '../../../../../common/Button/Button';
 function AuthorSelectedItem(props) {
 	return (
 		<div key={props.item}>
-			<p>{getUserName(props.item)}</p>
+			<p>{getUserName(props.authorState, props.item)}</p>
 			<Button
 				handleClick={() => props.unselectAuthor(props.item)}
 				buttonText='Unselect author'

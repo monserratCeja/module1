@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Header.css';
 import Logo from './components/Logo/Logo';
 import Button from '../../common/Button/Button';
 import { Link } from 'react-router-dom';
+//Redux
+import { useSelector } from 'react-redux';
+import { setUser } from '../../store/selectors';
 
 function Header(props) {
-	const [userName, setuserName] = useState(localStorage.getItem('data'));
+	const stateUser = useSelector((state) => setUser(state));
 	function logout() {
 		console.log('logout pressed');
 		localStorage.clear();
@@ -17,7 +20,7 @@ function Header(props) {
 			</div>
 
 			<div className='display-flex header--options-right'>
-				<p className='text--white'>{userName}</p>
+				<p className='text--white'>{stateUser.user.name}</p>
 				<Link to='/login'>
 					<Button handleClick={logout} buttonText='Log out' />
 				</Link>

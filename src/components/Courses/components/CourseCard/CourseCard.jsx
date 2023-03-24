@@ -3,31 +3,33 @@ import styles from './CourseCard.css';
 import { getUserName } from '../../../../helpers/getUserName';
 import Button from '../../../../common/Button/Button';
 import { Link, useParams } from 'react-router-dom';
+//redux
+import { setAuthors } from '../../../../store/selectors';
+import { useSelector } from 'react-redux';
 
 function CourseCard(props) {
 	let params = useParams();
 	const idAuthor = props.courseAuthors;
-	console.log(idAuthor);
 
-	const [authorName, setAuthorName] = useState([]);
+	const stateAuthors = useSelector((state) => setAuthors(state));
 
-	const getData = async () => {
-		const url = 'http://localhost:4000/authors/all';
-		const response = await fetch(url);
-		console.log(url);
-		const data = await response.json();
-		console.log(data.successful);
-		setAuthorName(data.result);
-	};
 	useEffect(() => {
-		getData();
-		console.log(authorName);
+		console.log(params);
 	}, []);
+
+	function deleteCourse(e) {
+		props.deleteCourseClicked(props.courseId);
+	}
 
 	return (
 		<div className='card--style'>
 			<div>
-				<h2>{props.courseTitle}</h2>
+				<h2>
+					<b>Title: </b> {props.courseTitle}
+				</h2>
+				<p>
+					<b>description: </b>
+				</p>
 				<p>{props.courseDescription}</p>
 			</div>
 			<div>
@@ -36,7 +38,7 @@ function CourseCard(props) {
 						<b>authors:</b>
 					</p>
 					{props.courseAuthors.map((item) => (
-						<p key={item}>{item}</p>
+						<p key={item}>{getUserName(stateAuthors, item)}</p>
 					))}
 				</div>
 				<div>
@@ -56,6 +58,8 @@ function CourseCard(props) {
 				<Link to={`/courses/${props.courseId}`}>
 					<Button buttonText='view details' />
 				</Link>
+				<Button buttonText='Delete Course' handleClick={deleteCourse} />
+				<Button buttonText='Edit Course' />
 			</div>
 		</div>
 	);

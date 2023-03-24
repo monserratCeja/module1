@@ -1,21 +1,29 @@
-import { SAVE_COURSES, DELETE_COURSE, ADD_COURSE } from './types.js';
+import {
+	SAVE_COURSES,
+	DELETE_COURSE,
+	ADD_COURSE,
+	GET_COURSES,
+} from './types.js';
 
-export const coursesInitialState = [];
+export const coursesInitialState = { courses: [] };
 
-// Use the initialState as a default value
 export const coursesReducer = (state = coursesInitialState, action) => {
-	// The reducer normally looks at the action type field to decide what happens
 	switch (action.type) {
 		case SAVE_COURSES:
 			return action.payload;
 
 		case ADD_COURSE:
-			// eslint-disable-next-line no-undef
-			return [...state, action, payload];
+			return { ...state, courses: [...state.courses, action.payload] };
+
+		case DELETE_COURSE:
+			const idCourse = action.payload;
+			const newState = state.courses.filter((item) => item.id !== idCourse);
+			return { ...state, courses: newState };
+
+		case GET_COURSES:
+			return { ...state, courses: action.payload };
 
 		default:
-			// If this reducer doesn't recognize the action type, or doesn't
-			// care about this specific action, return the existing state unchanged
 			return state;
 	}
 };

@@ -11,9 +11,10 @@ function CourseAuthors(props) {
 			<h3>Authors</h3>
 			{props.authorsList.map((item) => (
 				<div
-					//className='hideAuthor'
-					className={props.selectedAuthors.includes(item) ? 'hideAuthor' : ' '}
 					key={item.id}
+					//className='hideAuthor'
+					/*className={props.selectedAuthors.includes(item) ? 'hideAuthor' : ' '}
+					key={item.id}*/
 				>
 					<AuthorItem
 						name={item.name}
@@ -31,6 +32,7 @@ function CourseAuthors(props) {
 							<div key={item}>
 								<AuthorSelectedItem
 									item={item}
+									authorState={props.authorsList}
 									unselectAuthor={props.unselectAuthor}
 								/>
 							</div>

@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import useCourseList from '../../../../../customHooks/useCourseList';
 import Button from '../../../../../common/Button/Button';
 import Header from '../../../../Header/Header';
 import { getCoursesDuration } from '../../../../../helpers/getCoursesDuration';
+import { getUserName } from '../../../../../helpers/getUserName';
+//redux
+import { useSelector } from 'react-redux';
 
 function CourseInfo() {
-	//const { coursesListArr } = useCourseList();
-	const [courseInfo, setCourseInfo] = useState([]);
+	const [courseFiltered, setCourseFiltered] = useState([]);
 	const params = useParams();
-	const url = 'http://localhost:4000/courses/' + params.courseId;
+	const state = useSelector((state) => state.courses.courses);
 
-	const getCourseInfo = async () => {
-		const response = await fetch(url);
-		const data = await response.json();
-		console.log('Course info result ');
-		console.log(data.result);
-		setCourseInfo(data.result);
-	};
+	function filterById(id) {
+		const specificCourse = state.filter((course) => course.id === id);
+		setCourseFiltered(specificCourse);
+	}
 
 	useEffect(() => {
-		getCourseInfo();
+		filterById(params.courseId);
 	}, []);
+
 	return (
 		<div>
 			<Header />
@@ -29,52 +28,31 @@ function CourseInfo() {
 				<Button buttonText='return to Courses' />
 			</Link>
 			<h2>Course info</h2>
-			{courseInfo !== null ? (
-				<div key={courseInfo.id}>
-					<div className='courseInfo--title'>
-						<p>{courseInfo.title}</p>
-					</div>
-					<div className='courseInfo--description'>
-						<p>{courseInfo.description}</p>
-					</div>
-					<div>
-						<p>
-							<b>id: </b>
-							{courseInfo.id}
-						</p>
-						<p>
-							<b>Duration: </b>
-							{getCoursesDuration(courseInfo.duration)}
-						</p>
-						<p>
-							<b>Authors:</b>
-							{courseInfo.authors}
-						</p>
-					</div>
-				</div>
-			) : (
-				'no hay info'
-			)}
+			{courseFiltered !== null
+				? courseFiltered.map((item) => (
+						<div key={item.id}>
+							<h2>Titulo del curso: {item.title}</h2>
+							<p>
+								<b>descripción del curso: </b>
+								{item.description}
+							</p>
+							<p>
+								<b>id: </b>
+								{item.id}
+							</p>
+							<p>
+								<b>Duration: </b>
+								{getCoursesDuration(item.duration)}
+							</p>
+							<p>
+								<b>Authors:</b>
+								{item.authors}
+							</p>
+						</div>
+				  ))
+				: 'no hay info'}
 		</div>
 	);
 }
 
 export default CourseInfo;
-
-/*
-{courseInfo &&
-				courseInfo.map((item) => (
-					<div key={item.id}>
-						<h2>{item.title}</h2>
-					</div>
-				))}
-				*/
-
-/*
-				{courseInfo !== null
-				? courseInfo.map((item) => (
-						<div key={item.id}>
-							<p>{item.title}</p>
-						</div>
-				  ))
-				: 'no hay info'}*/

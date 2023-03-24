@@ -10,8 +10,14 @@ import { formatCreationDate } from '../../helpers/formatCreationDate';
 import { v4 as uuidv4 } from 'uuid';
 import useAuthorsList from '../../customHooks/useAuthorsList';
 import useCourseList from '../../customHooks/useCourseList';
-import { Link, redirect } from 'react-router-dom';
+import { Link, useNavigate, redirect } from 'react-router-dom';
 import Header from '../Header/Header';
+//redux
+import { useSelector, useDispatch } from 'react-redux';
+import { setAuthors } from '../../store/selectors';
+import { getAuthors } from '../../services/services';
+import { addCourseAction } from '../../store/courses/actions';
+import { addAuthorAction, getAuthorsAction } from '../../store/authors/actions';
 
 function CreateCourse(props) {
 	const forbiddenSymbols = /[@#$%^&]/;
@@ -26,6 +32,20 @@ function CreateCourse(props) {
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [dateCreated, setDateCreated] = useState(formatCreationDate());
+
+	//redux
+	const navigate = useNavigate();
+
+	const authorState = useSelector((state) => state.authors.authors);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		getAuthors().then((data) => dispatch(getAuthorsAction(data)));
+	}, []);
+	useEffect(() => {
+		console.log('authors fetch');
+		console.log(authorState);
+	}, [authorState]);
 
 	function durationOnChange(durationAdded) {
 		setNewDuration((prevValue) => durationAdded);
@@ -49,13 +69,10 @@ function CreateCourse(props) {
 	}
 	function submitNewAuthor(e) {
 		e.preventDefault();
-		console.log(newAuthor);
-		console.log(newId);
-		setAuthorsListArr((prevValue) => [
-			...prevValue,
-			{ id: newId, name: newAuthor },
-		]);
-		//props.createAuthor(newAuthor, newId);
+		const newItem = { name: newAuthor, id: newId };
+		console.log('nuevo author ', newItem);
+		dispatch(addAuthorAction(newItem));
+		console.log(authorState);
 	}
 
 	function saveCoursePressed(
@@ -82,24 +99,19 @@ function CreateCourse(props) {
 			console.log(newDuration);
 			console.log(newAuthors);
 			//setCreateCoursesView(!createCoursesView);
-			setCoursesListArr((prevValue) => [
-				...prevValue,
-				{
-					id: newId,
-					title: newTitle,
-					description: newDescription,
-					creationDate: dateCreated,
-					duration: newDuration,
-					authors: newAuthors,
-				},
-			]);
-			return redirect('/courses');
+			const newItem = {
+				title: newTitle,
+				description: newDescription,
+				creationDate: dateCreated,
+				duration: newDuration,
+				authors: newAuthors,
+				id: newId,
+			};
+			navigate('../courses', { replace: true });
+			//navigate('/courses');
+			dispatch(addCourseAction(newItem));
 		}
 	}
-	useEffect(() => {
-		console.log('useEffect from Create course component');
-		console.log(coursesListArr);
-	}, [coursesListArr]);
 	function selectAuthorsClicked(id) {
 		console.log('id seleccionado ' + id);
 		setCourseAuthors([...courseAuthors, id]);
@@ -168,7 +180,7 @@ function CreateCourse(props) {
 				<div className='Authors--div'>
 					<CourseAuthors
 						selectedAuthors={courseAuthors}
-						authorsList={authorsListArr}
+						authorsList={authorState}
 						selectAuthorsClicked={selectAuthorsClicked}
 						unselectAuthor={unselectAuthor}
 					/>
@@ -185,40 +197,3 @@ function CreateCourse(props) {
 	);
 }
 export default CreateCourse;
-/*function saveCoursePressed(
-		newId,
-		newTitle,
-		newDescription,
-		dateCreated,
-		newDuration,
-		newAuthors
-	) {
-		if (newTitle.length === 0) {
-			alert('Please add a Title');
-		} else if (newDescription.length === 0) {
-			alert('Please add a Description');
-		} else if (newDuration.length === 0) {
-			alert('Please add a Duration');
-		} else if (newAuthors.length === 0) {
-			alert('Please select the course authors');
-		} else {
-			console.log('Save course clicked');
-			console.log(newId);
-			console.log(newTitle);
-			console.log(newDescription);
-			console.log(newDuration);
-			console.log(newAuthors);
-			setCreateCoursesView(!createCoursesView);
-			setCoursesListArr((prevValue) => [
-				...prevValue,
-				{
-					id: newId,
-					title: newTitle,
-					description: newDescription,
-					creationDate: dateCreated,
-					duration: newDuration,
-					authors: newAuthors,
-				},
-			]);
-		}
-	}*/
