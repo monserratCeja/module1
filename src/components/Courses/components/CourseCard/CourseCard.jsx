@@ -38,7 +38,7 @@ function CourseCard(props) {
 						<b>authors:</b>
 					</p>
 					{props.courseAuthors.map((item) => (
-						<p key={item}>{getUserName(stateAuthors, item)}</p>
+						<p key={item}>{item}</p>
 					))}
 				</div>
 				<div>
