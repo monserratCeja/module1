@@ -10,6 +10,7 @@ import Courses from './components/Courses/Courses';
 import CourseInfo from './components/Courses/components/CourseCard/CourseInfo/CourseInfo';
 import { Provider } from 'react-redux';
 import store from './store/index';
+import { PrivateRoute } from './components/PrivateRoute/PrivateRoute';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,12 +18,32 @@ root.render(
 		<BrowserRouter>
 			<Routes>
 				<Route path='/' element={<App />}>
-					<Route path='courses' element={<Courses />} />
-					<Route path='courses/:courseId' element={<CourseInfo />} />
+					<Route
+						path='courses'
+						element={
+							<PrivateRoute>
+								<Courses />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path='courses/:courseId'
+						element={
+							<PrivateRoute>
+								<CourseInfo />
+							</PrivateRoute>
+						}
+					/>
 					<Route path='login' element={<Login />} />
-					<Route path='courses/add' element={<CreateCourse />} />
+					<Route
+						path='courses/add'
+						element={
+							<PrivateRoute>
+								<CreateCourse />
+							</PrivateRoute>
+						}
+					/>
 					<Route path='registration' element={<Registration />}></Route>
-					<Route path=':id' element={<CourseInfo />} />
 				</Route>
 				<Route path='*' element={<App />} />
 			</Routes>

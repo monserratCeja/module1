@@ -12,3 +12,11 @@ export const deleteCourseAction = (payload) => ({
 });
 export const saveCoursesAction = (payload) => ({ type: SAVE_COURSES, payload });
 export const getCoursesAction = (payload) => ({ type: GET_COURSES, payload });
+
+export function getCoursesThunk() {
+	return (dispatch, getState) => {
+		return fetch('http://localhost:4000/courses/all')
+			.then((response) => response.json())
+			.then((response) => dispatch(getCoursesAction(response.result)));
+	};
+}

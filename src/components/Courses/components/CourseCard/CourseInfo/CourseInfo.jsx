@@ -3,7 +3,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import Button from '../../../../../common/Button/Button';
 import Header from '../../../../Header/Header';
 import { getCoursesDuration } from '../../../../../helpers/getCoursesDuration';
-import { getUserName } from '../../../../../helpers/getUserName';
+//import { getUserName } from '../../../../../helpers/getUserName';
 //redux
 import { useSelector } from 'react-redux';
 

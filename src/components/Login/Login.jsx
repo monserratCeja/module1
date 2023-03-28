@@ -8,8 +8,8 @@ import { setUser } from '../../store/selectors';
 import { getUserAction } from '../../store/user/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAuthors, getCourses } from '../../services/services';
-import { getCoursesAction } from '../../store/courses/actions';
-import { getAuthorsAction } from '../../store/authors/actions';
+import { getCoursesAction, getCoursesThunk } from '../../store/courses/actions';
+import { getAuthorsAction, getAuthorsThunk } from '../../store/authors/actions';
 
 function Login() {
 	const [name, setName] = useState('');
@@ -46,9 +46,12 @@ function Login() {
 		if (result.successful) {
 			localStorage.setItem('data', result.result);
 			dispatch(getUserAction(result));
-			console.log(result);
-			getCourses().then((data) => dispatch(getCoursesAction(data)));
-			getAuthors().then((data) => dispatch(getAuthorsAction(data)));
+			console.log('results from login saved in store: ', stateUser);
+			//getCourses().then((data) => dispatch(getCoursesAction(data)));
+			//getAuthors().then((data) => dispatch(getAuthorsAction(data)));
+			dispatch(getCoursesThunk());
+			dispatch(getAuthorsThunk());
+
 			navigate('../courses', { replace: true });
 		} else {
 			alert('datos incorrectos');
