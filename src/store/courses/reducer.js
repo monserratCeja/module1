@@ -1,5 +1,5 @@
 import {
-	SAVE_COURSES,
+	EDIT_COURSE,
 	DELETE_COURSE,
 	ADD_COURSE,
 	GET_COURSES,
@@ -9,10 +9,12 @@ export const coursesInitialState = { courses: [] };
 
 export const coursesReducer = (state = coursesInitialState, action) => {
 	switch (action.type) {
-		case SAVE_COURSES:
+		case EDIT_COURSE:
+			console.log('Edit reducer ', action.payload.id);
 			return action.payload;
 
 		case ADD_COURSE:
+			console.log('Add reducer ', action.payload);
 			return { ...state, courses: [...state.courses, action.payload] };
 
 		case DELETE_COURSE:

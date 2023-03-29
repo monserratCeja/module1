@@ -1,7 +1,7 @@
 import {
 	ADD_COURSE,
 	DELETE_COURSE,
-	SAVE_COURSES,
+	EDIT_COURSE,
 	GET_COURSES,
 } from './types.js';
 
@@ -10,7 +10,7 @@ export const deleteCourseAction = (payload) => ({
 	type: DELETE_COURSE,
 	payload,
 });
-export const saveCoursesAction = (payload) => ({ type: SAVE_COURSES, payload });
+export const editCourseAction = (payload) => ({ type: EDIT_COURSE, payload });
 export const getCoursesAction = (payload) => ({ type: GET_COURSES, payload });
 
 export function getCoursesThunk() {

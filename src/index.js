@@ -12,6 +12,8 @@ import { Provider } from 'react-redux';
 import store from './store/index';
 import { PrivateRoute } from './components/PrivateRoute/PrivateRoute';
 
+import EditCourse from './components/EditCourse/EditCourse';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<Provider store={store}>
@@ -37,6 +39,14 @@ root.render(
 					<Route path='login' element={<Login />} />
 					<Route
 						path='courses/add'
+						element={
+							<PrivateRoute>
+								<CreateCourse />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path='/courses/update/:courseId'
 						element={
 							<PrivateRoute>
 								<CreateCourse />
