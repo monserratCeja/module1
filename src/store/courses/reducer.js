@@ -12,9 +12,9 @@ export const coursesReducer = (state = coursesInitialState, action) => {
 		case EDIT_COURSE:
 			const idCourseEdited = action.payload.id;
 			const newStateEdited = state.courses.map((item) =>
-				item.id === idCourseEdited ? { ...item, item: action.payload } : item
+				item.id === idCourseEdited ? action.payload : item
 			);
-			console.log('Edit reducer ', newStateEdited);
+			console.log('Edit reducer- New state ', newStateEdited);
 			console.log('Edit action payload ', action.payload);
 			return { ...state, courses: newStateEdited };
 
