@@ -99,7 +99,7 @@ function CreateCourse(props) {
 		} else if (newAuthors.length === 0) {
 			alert('Please select the course authors');
 		} else {
-			if (params.id === undefined) {
+			if (params.courseId === undefined) {
 				console.log('Save course clicked');
 				console.log(newId);
 				console.log(newTitle);
@@ -131,11 +131,11 @@ function CreateCourse(props) {
 					creationDate: dateCreated,
 					duration: newDuration,
 					authors: newAuthors,
-					id: params.id,
+					id: params.courseId,
 				};
 				navigate('../courses', { replace: true });
-				dispatch(addCourseAction(newItem));
-				//dispatch(editCourseAction(newItem));
+				//dispatch(addCourseAction(newItem));
+				dispatch(editCourseAction(newItem));
 			}
 			//navigate('../courses', { replace: true });
 			//navigate('/courses');
