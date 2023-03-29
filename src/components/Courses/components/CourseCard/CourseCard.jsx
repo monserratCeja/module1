@@ -59,7 +59,9 @@ function CourseCard(props) {
 					<Button buttonText='view details' />
 				</Link>
 				<Button buttonText='Delete Course' handleClick={deleteCourse} />
-				<Button buttonText='Edit Course' />
+				<Link to={`/courses/update/${props.courseId}`}>
+					<Button buttonText='Edit Course' />
+				</Link>
 			</div>
 		</div>
 	);

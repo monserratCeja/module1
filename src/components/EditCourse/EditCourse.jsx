@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import CreateCourseForm from './components/CreateCourseForm/CreateCourseForm';
+/*import React, { useState, useEffect } from 'react';
+import CreateCourseForm from './components/CreateCourse/CreateCourse.jsx';
 import Input from '../../common/Input/Input';
 import styles from './CreateCourse.css';
 import Button from '../../common/Button/Button';
@@ -10,26 +10,22 @@ import { formatCreationDate } from '../../helpers/formatCreationDate';
 import { v4 as uuidv4 } from 'uuid';
 import useAuthorsList from '../../customHooks/useAuthorsList';
 import useCourseList from '../../customHooks/useCourseList';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, redirect } from 'react-router-dom';
 import Header from '../Header/Header';
 //redux
 import { useSelector, useDispatch } from 'react-redux';
 import { setAuthors } from '../../store/selectors';
 import { getAuthors } from '../../services/services';
-import { addCourseAction, editCourseAction } from '../../store/courses/actions';
+import { addCourseAction } from '../../store/courses/actions';
 import { addAuthorAction, getAuthorsAction } from '../../store/authors/actions';
 
-function CreateCourse(props) {
+export default function EditCourse(props) {
 	const forbiddenSymbols = /[@#$%^&]/;
 	const { coursesListArr, setCoursesListArr } = useCourseList();
 	const { authorsListArr, setAuthorsListArr } = useAuthorsList();
 
-	//Edit specific course
-	const params = useParams();
-
 	const [newAuthor, setNewAuthor] = useState('');
 	const [newId, setNewId] = useState(uuidv4());
-	//const [newId, setNewId] = useState('');
 	const [newCourseId, setNewCourseId] = useState(uuidv4());
 	const [newDuration, setNewDuration] = useState('');
 	const [courseAuthors, setCourseAuthors] = useState([]);
@@ -50,9 +46,6 @@ function CreateCourse(props) {
 		console.log('authors fetch');
 		console.log(authorState);
 	}, [authorState]);
-	useEffect(() => {
-		console.log('id: ', params.courseId);
-	}, [params]);
 
 	function durationOnChange(durationAdded) {
 		setNewDuration((prevValue) => durationAdded);
@@ -99,47 +92,24 @@ function CreateCourse(props) {
 		} else if (newAuthors.length === 0) {
 			alert('Please select the course authors');
 		} else {
-			if (params.courseId === undefined) {
-				console.log('Save course clicked');
-				console.log(newId);
-				console.log(newTitle);
-				console.log(newDescription);
-				console.log(newDuration);
-				console.log(newAuthors);
-				//setCreateCoursesView(!createCoursesView);
-				const newItem = {
-					title: newTitle,
-					description: newDescription,
-					creationDate: dateCreated,
-					duration: newDuration,
-					authors: newAuthors,
-					id: newId,
-				};
-				navigate('../courses', { replace: true });
-				dispatch(addCourseAction(newItem));
-			} else {
-				console.log('Edit course clicked');
-				console.log(newId);
-				console.log(newTitle);
-				console.log(newDescription);
-				console.log(newDuration);
-				console.log(newAuthors);
-				//setCreateCoursesView(!createCoursesView);
-				const newItem = {
-					title: newTitle,
-					description: newDescription,
-					creationDate: dateCreated,
-					duration: newDuration,
-					authors: newAuthors,
-					id: params.courseId,
-				};
-				navigate('../courses', { replace: true });
-				//dispatch(addCourseAction(newItem));
-				dispatch(editCourseAction(newItem));
-			}
-			//navigate('../courses', { replace: true });
+			console.log('Save course clicked');
+			console.log(newId);
+			console.log(newTitle);
+			console.log(newDescription);
+			console.log(newDuration);
+			console.log(newAuthors);
+			//setCreateCoursesView(!createCoursesView);
+			const newItem = {
+				title: newTitle,
+				description: newDescription,
+				creationDate: dateCreated,
+				duration: newDuration,
+				authors: newAuthors,
+				id: newId,
+			};
+			navigate('../courses', { replace: true });
 			//navigate('/courses');
-			//dispatch(addCourseAction(newItem));
+			dispatch(addCourseAction(newItem));
 		}
 	}
 	function selectAuthorsClicked(id) {
@@ -159,7 +129,7 @@ function CreateCourse(props) {
 				<div className='grid-col-span-2'>
 					<div className='CreateCourse--flex'>
 						<div>
-							<h2>Course form </h2>
+							<h2>Edit Course id: </h2>
 						</div>
 						<div className='CreateCourse--topElementButtons'>
 							<Link to='/courses'>
@@ -226,4 +196,4 @@ function CreateCourse(props) {
 		</>
 	);
 }
-export default CreateCourse;
+//export default CreateCourse;*/
